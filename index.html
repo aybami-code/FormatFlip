@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JsonYaml SynthWave Converter</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    <script src="script.js" defer></script>
+    <style>
+        :root {
+            --primary: #8a2be2;
+            --secondary: #ff00ff;
+            --dark: #0f0f23;
+            --light: #f8f8ff;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-[var(--dark)] to-[#1a1a2e] min-h-screen font-mono text-[var(--light)] overflow-x-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Animated Header -->
+        <header class="relative mb-16">
+            <div class="absolute -inset-4 bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] rounded-lg blur opacity-75 animate-pulse"></div>
+            <h1 class="relative bg-[var(--dark)] py-6 px-8 rounded-lg text-center text-3xl md:text-4xl font-bold tracking-wide">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)]">
+                    JSON ⇄ YAML Converter
+                </span>
+            </h1>
+        </header>
+
+        <!-- Main Converter Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- JSON Editor -->
+            <div class="relative">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-semibold bg-[var(--dark)] px-4 py-2 rounded-t-lg inline-flex items-center gap-2 border-b-2 border-[var(--primary)]">
+                        <i data-feather="code" class="text-[var(--primary)]"></i>
+                        JSON
+                    </h2>
+                    <div class="flex gap-2">
+                        <button id="copyJson" class="tooltip-btn" data-tooltip="Copy JSON">
+                            <i data-feather="copy" class="hover:text-[var(--primary)] transition-colors"></i>
+                        </button>
+                        <button id="downloadJson" class="tooltip-btn" data-tooltip="Download JSON">
+                            <i data-feather="download" class="hover:text-[var(--primary)] transition-colors"></i>
+                        </button>
+                        <button id="formatJson" class="tooltip-btn" data-tooltip="Format JSON">
+                            <i data-feather="align-left" class="hover:text-[var(--primary)] transition-colors"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="jsonError" class="hidden absolute top-16 right-4 bg-red-500/90 text-white px-3 py-1 rounded-full text-xs animate-bounce"></div>
+                <textarea 
+                    id="jsonInput" 
+                    class="w-full h-96 p-4 bg-[#1e1e2e] border-2 border-[var(--primary)]/30 rounded-lg focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/50 transition-all duration-300 resize-none scrollbar-thin scrollbar-thumb-[var(--primary)] scrollbar-track-[#1e1e2e]"
+                    placeholder='{\n  "example": "Enter valid JSON here",\n  "features": ["realtime", "conversion"]\n}'
+                ></textarea>
+            </div>
+
+            <!-- YAML Editor -->
+            <div class="relative">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-semibold bg-[var(--dark)] px-4 py-2 rounded-t-lg inline-flex items-center gap-2 border-b-2 border-[var(--secondary)]">
+                        <i data-feather="file-text" class="text-[var(--secondary)]"></i>
+                        YAML
+                    </h2>
+                    <div class="flex gap-2">
+                        <button id="copyYaml" class="tooltip-btn" data-tooltip="Copy YAML">
+                            <i data-feather="copy" class="hover:text-[var(--secondary)] transition-colors"></i>
+                        </button>
+                        <button id="downloadYaml" class="tooltip-btn" data-tooltip="Download YAML">
+                            <i data-feather="download" class="hover:text-[var(--secondary)] transition-colors"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="yamlError" class="hidden absolute top-16 right-4 bg-red-500/90 text-white px-3 py-1 rounded-full text-xs animate-bounce"></div>
+                <textarea 
+                    id="yamlInput" 
+                    class="w-full h-96 p-4 bg-[#1e1e2e] border-2 border-[var(--secondary)]/30 rounded-lg focus:border-[var(--secondary)] focus:ring-2 focus:ring-[var(--secondary)]/50 transition-all duration-300 resize-none scrollbar-thin scrollbar-thumb-[var(--secondary)] scrollbar-track-[#1e1e2e]"
+                    placeholder="example: Enter valid YAML here\nfeatures:\n  - realtime\n  - conversion"
+                ></textarea>
+            </div>
+        </div>
+
+        <!-- Floating Action Buttons -->
+        <div class="fixed bottom-8 right-8 flex flex-col gap-4">
+            <button id="clearAll" class="p-3 bg-[var(--dark)] rounded-full shadow-lg hover:bg-[var(--primary)] transition-all duration-300 group">
+                <i data-feather="trash-2" class="group-hover:scale-110 transition-transform"></i>
+            </button>
+            <button id="exampleBtn" class="p-3 bg-[var(--dark)] rounded-full shadow-lg hover:bg-[var(--secondary)] transition-all duration-300 group">
+                <i data-feather="zap" class="group-hover:scale-110 transition-transform"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>

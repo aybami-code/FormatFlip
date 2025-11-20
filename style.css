@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    font-family: 'Fira Code', monospace;
+}
+
+body {
+    scroll-behavior: smooth;
+}
+
+/* Scrollbar */
+.scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 0 5px var(--primary); }
+    50% { box-shadow: 0 0 20px var(--primary); }
+    100% { box-shadow: 0 0 5px var(--primary); }
+}
+
+/* Tooltips */
+.tooltip-btn {
+    position: relative;
+}
+
+.tooltip-btn::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 8px;
+    background-color: var(--dark);
+    color: var(--light);
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    border: 1px solid var(--primary);
+}
+
+.tooltip-btn:hover::after {
+    opacity: 1;
+}
+
+/* Editor transitions */
+textarea {
+    animation: fadeIn 0.5s ease-out forwards;
+    transition: height 0.3s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    #jsonInput, #yamlInput {
+        height: 300px;
+    }
+}
+
+/* Focus effects */
+textarea:focus {
+    animation: glow 2s infinite;
+}
